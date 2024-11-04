@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/page-template.xhtml">
+
+	<ui:define name="pageContent">
+
+		<p:panel header="Kalkulator">
+
+			<p:messages id="msg" />
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+					<p:outputLabel for="idkwota" value="Kwota kredytu:"/>
+					<p:inputText id="idkwota" value="#{kredytBB.kwota}" 
+						required="true" 
+						requiredMessage="Należy podać kwotę kredytu"
+						validatorMessage="Kwota musi być większa niż 30.000zł">
+						<f:validateLongRange minimum="30000" />
+					</p:inputText>
+					<p:outputLabel for="idokresKredytowania" value="Okres kredytowania (lata):" />
+					<p:inputText id="idokresKredytowania" value="#{kredytBB.okresKredytowania}" 
+						required="true" 
+						requiredMessage="Należy podać okres kredytowania"
+						validatorMessage="Okres kredytowania musi być pomiędzy 5 a 40 lat">
+						<f:validateLongRange minimum="5" maximum="40"/>
+					</p:inputText>
+					<p:outputLabel for="idoprocentowanie" value="Oprocentowanie:" />
+					<p:inputText id="idoprocentowanie" value="#{kredytBB.oprocentowanie}" 
+						required="true" 
+						requiredMessage="Nalezy podać oprocentowanie kredytu"
+						validatorMessage="Oprocentowanie powinno znajdować się w przedziale od 0.5 do 40 procent">
+						<f:validateDoubleRange minimum="0.5" maximum="40" />
+					</p:inputText>
+					<p:commandButton value="Oblicz miesięczną ratę kredytu" action="#{kredytBB.calc()}" update="msg" />
+				</h:panelGrid>
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+</html>
